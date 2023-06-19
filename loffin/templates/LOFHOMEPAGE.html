@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url("static/nature3.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h1 {
+            color: #4E7B10;
+            text-align: center;
+            margin-top: 50px;
+            font-size: 48px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            margin: 10px;
+            background-color: #4E7B10;
+            color: #FFFFFF;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:hover {
+            background-color: #375E0B;
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+    <script>
+        function goToPythonPage() {
+            
+            window.location.href = 'LOFGAMES.html';
+        }
+
+        function goToSettings() {
+            
+            window.location.href = 'LOFSETTINGS.html';
+        }
+
+        function goToProfile() {
+           
+            window.location.href = 'LOFPROFILE.html';
+        }
+
+        function goToLeaderboards() {
+            
+            window.location.href = 'LOFLEADERBOARD.html';
+        }
+
+        function goToLoginpage() {
+            
+            window.location.href = 'LOFLOGIN.html';
+        }
+    </script>
+</head>
+<body>
+    <h1>Welcome to the Game</h1>
+
+    <div class="btn-container">
+        <button class="btn" onclick="goToPythonPage()">Play Game</button>
+        <button class="btn" onclick="goToSettings()">Settings</button>
+        <button class="btn" onclick="goToProfile()">Profile</button>
+        <button class="btn" onclick="goToLeaderboards()">Leaderboards</button>
+        <button class="btn" onclick="goToLoginpage()">Logout</button>
+    </div>
+</body>
+</html>

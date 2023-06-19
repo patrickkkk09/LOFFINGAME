@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <title>Random Coding Questions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #FFFFDE;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #4E7B10;
+            text-align: center;
+        }
+
+        .question {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .choices {
+            display: flex;
+            flex-direction: column;
+            margin-top: 20px;
+        }
+
+        .choice {
+            background-color: #4E7B10;
+            color: #FFFFFF;
+            font-size: 16px;
+            padding: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        .choice:hover {
+            background-color: #6AA84F;
+        }
+
+        .result {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .explanation {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Random Coding Questions</h1>
+    <div class="question">
+        <p id="questionText"></p>
+    </div>
+    <div class="choices" id="choices"></div>
+    <div class="result" id="result"></div>
+    <div class="explanation" id="explanation"></div>
+
+    <script>
+        var questions = [
+            {
+                question: "What is the capital of France?",
+                choices: ["Paris", "London", "Berlin", "Rome"],
+                correctAnswer: "Paris",
+                explanation: "Paris is the capital of France."
+            },
+            {
+                question: "What programming language is known for its use in web development?",
+                choices: ["Python", "Java", "JavaScript", "C++"],
+                correctAnswer: "JavaScript",
+                explanation: "JavaScript is a programming language commonly used for web development."
+            },
+            {
+                question: "What does HTML stand for?",
+                choices: ["Hyper Text Markup Language", "Home Tool Markup Language", "Hyperlinks and Text Markup Language", "Hyperlinks and Textual Markup Language"],
+                correctAnswer: "Hyper Text Markup Language",
+                explanation: "HTML stands for Hyper Text Markup Language."
+            },
+            {
+                question: "Which of the following is not a version control system?",
+                choices: ["Git", "SVN", "Mercurial", "Ruby"],
+                correctAnswer: "Ruby",
+                explanation: "Ruby is a programming language, not a version control system."
+            }
+        ];
+
+        var currentQuestionIndex = 0;
+
+        function displayQuestion() {
+            var question = questions[currentQuestionIndex];
+            var questionText = document.getElementById("questionText");
+            var choicesContainer = document.getElementById("choices");
+            var result = document.getElementById("result");
+            var explanation = document.getElementById("explanation");
+
+            questionText.textContent = question.question;
+            result.textContent = "";
+            explanation.textContent = "";
+
+            choicesContainer.innerHTML = "";
+            for (var i = 0; i < question.choices.length; i++) {
+                var choice = document.createElement("div");
+                choice.className = "choice";
+                choice.textContent = question.choices[i];
+                choice.onclick = checkAnswer.bind(null, choice, question.correctAnswer, question.explanation);
+                choicesContainer.appendChild(choice);
+            }
+        }
+
+        function checkAnswer(choice, correctAnswer, explanation) {
+            var selectedAnswer = choice.textContent;
+            var result = document.getElementById("result");
+            var explanationElement = document.getElementById("explanation");
+
+            if (selectedAnswer === correctAnswer) {
+                result.textContent = "Correct!";
+                result.style.color = "#4E7B10";
+                choice.style.backgroundColor = "#6AA84F";
+                explanationElement.textContent = explanation;
+                explanationElement.style.color = "#4E7B10";
+
+                // Delay before displaying the next question
+                setTimeout(function() {
+                    currentQuestionIndex++;
+                    if (currentQuestionIndex < questions.length) {
+                        displayQuestion();
+                    } else {
+                        result.textContent = "Quiz completed!";
+                        explanationElement.textContent = "";
+                    }
+                }, 1000); // 1 second delay (adjust as desired)
+            } else {
+                result.textContent = "Wrong answer!";
+                result.style.color = "#FF0000";
+                choice.style.backgroundColor = "#FF0000";
+                explanationElement.textContent = "The correct answer is: " + correctAnswer;
+                explanationElement.style.color = "#4E7B10";
+            }
+
+            // Disable further selection
+            var choices = document.getElementsByClassName("choice");
+            for (var i = 0; i < choices.length; i++) {
+                choices[i].style.pointerEvents = "none";
+            }
+        }
+
+        // Start the game
+        displayQuestion();
+    </script>
+</body>
+</html>

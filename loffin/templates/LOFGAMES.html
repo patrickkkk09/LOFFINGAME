@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Random Coding Questions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url("static/nature2.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #4E7B10;
+            text-align: center;
+        }
+
+        .homepage-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .homepage-button button {
+            background-color: #4E7B10;
+            color: #FFFFFF;
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .homepage-button button:hover {
+            background-color: #6AA84F;
+        }
+
+        .homepage-button button:active {
+            background-color: #4E7B10;
+            transform: translateY(1px);
+        }
+
+        .question {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .choices {
+            display: flex;
+            flex-direction: column;
+            margin-top: 20px;
+        }
+
+        .choice {
+            background-color: #4E7B10;
+            color: #FFFFFF;
+            font-size: 16px;
+            padding: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        .choice:hover {
+            background-color: #6AA84F;
+        }
+
+        .result {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .explanation {
+            margin-top: 10px;
+        }
+        
+        .score {
+            background-color: #4E7B10;
+            color: #FFFFFF;
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: default;
+            text-align: center;
+            width: 120px;
+            margin: 10px auto;
+            transition: background-color 0.3s ease;
+        }
+
+        .score:hover {
+            background-color: #6AA84F;
+        }
+    </style>
+</head>
+<body>
+    <div class="Leaderboards-button">
+        <button onclick="goToLeaderboards()">Leaderboards</button>
+    </div>
+    <h1>Random Coding Questions</h1>
+    <div class="question">
+        <p id="questionText"></p>
+    </div>
+    <div class="choices" id="choices"></div>
+    <div class="result" id="result"></div>
+    <div class="explanation" id="explanation"></div>
+    <div class="score" id="score"></div>
+
+    <script>
+        var questions = [
+            {
+                question: "What is the purpose of the word FOR for loop in programming?",
+                choices: ["To declare a variable", "To execute a block of code repeatedly", "To define a function", "To display output on the screen"],
+                correctAnswer: "To execute a block of code repeatedly",
+                explanation: "A FOR loop is a control flow statement that allows you to repeatedly execute a block of code for a specific number of times or based on a specified condition."
+            },
+            {
+                question: "What programming language is known for its use in web development?",
+                choices: ["Python", "Java", "JavaScript", "C++"],
+                correctAnswer: "JavaScript",
+                explanation: "JavaScript is a programming language commonly used for web development."
+            },
+            {
+                question: "What does HTML stand for?",
+                choices: ["Hyper Text Markup Language", "Home Tool Markup Language", "Hyperlinks and Text Markup Language", "Hyperlinks and Textual Markup Language"],
+                correctAnswer: "Hyper Text Markup Language",
+                explanation: "HTML stands for Hyper Text Markup Language."
+            },
+            {
+                question: "What does the acronym SQL stand for in the context of databases?",
+                choices: ["Structured Query Language", "Sequential Query Language", "System Query Language", "Standardized Query Logic"],
+                correctAnswer: "Structured Query Language",
+                explanation: "SQL is a standard language used for managing and manipulating relational databases."
+            },
+            {
+                question: "Which of the following is not a version control system?",
+                choices: ["Git", "SVN", "Mercurial", "Ruby"],
+                correctAnswer: "Ruby",
+                explanation: "Ruby is a programming language, not a version control system."
+            },
+            {
+                question: "What is the purpose of the BREAK statement in programming?",
+                choices: ["To terminate a loop or switch statement", "To declare a variable", "To print output on the screen", "To perform arithmetic calculations"],
+                correctAnswer: "Ruby",
+                explanation: "The BREAK statement is used to exit or terminate the execution of a loop or switch statement prematurely, allowing the program to continue executing the next line of code outside the loop or switch."
+            }
+        ];
+
+        var currentQuestionIndex = 0;
+        var score = 0;
+
+        function displayQuestion() {
+            var question = questions[currentQuestionIndex];
+            var questionText = document.getElementById("questionText");
+            var choicesContainer = document.getElementById("choices");
+            var result = document.getElementById("result");
+            var explanation = document.getElementById("explanation");
+            var scoreElement = document.getElementById("score");
+
+            questionText.textContent = question.question;
+            result.textContent = "";
+            explanation.textContent = "";
+            scoreElement.textContent = "Score: " + score;
+
+            choicesContainer.innerHTML = "";
+            for (var i = 0; i < question.choices.length; i++) {
+                var choice = document.createElement("div");
+                choice.className = "choice";
+                choice.textContent = question.choices[i];
+                choice.onclick = checkAnswer.bind(null, choice, question.correctAnswer, question.explanation);
+                choicesContainer.appendChild(choice);
+            }
+        }
+
+        function checkAnswer(choice, correctAnswer, explanation) {
+    var selectedAnswer = choice.textContent;
+    var result = document.getElementById("result");
+    var explanationElement = document.getElementById("explanation");
+
+    if (selectedAnswer === correctAnswer) {
+        score++;
+        result.textContent = "Correct!";
+        result.style.color = "#4E7B10";
+        choice.style.backgroundColor = "#6AA84F";
+        explanationElement.textContent = explanation;
+        explanationElement.style.color = "#4E7B10";
+
+        setTimeout(function() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                displayQuestion();
+            } else {
+                result.textContent = "Quiz completed! Final score: " + score;
+                explanationElement.textContent = "";
+            }
+        }, 1000);
+    } else {
+        result.textContent = "Wrong answer!";
+        result.style.color = "#FF0000";
+        choice.style.backgroundColor = "#FF0000";
+        explanationElement.textContent = "The correct answer is: " + correctAnswer;
+        explanationElement.style.color = "#4E7B10";
+
+        setTimeout(function() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                displayQuestion();
+            } else {
+                result.textContent = "Quiz completed! Final score: " + score;
+                explanationElement.textContent = "";
+            }
+        }, 1000);
+    }
+
+    var choices = document.getElementsByClassName("choice");
+    for (var i = 0; i < choices.length; i++) {
+        choices[i].style.pointerEvents = "none";
+    }
+}
+
+
+        function goToLeaderboards() {
+            window.location.href = "LOFLEADERBOARD.html"; 
+        }
+
+        displayQuestion();
+    </script>
+</body>
+</html>
